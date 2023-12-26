@@ -5,6 +5,8 @@ from sklearn.preprocessing import LabelEncoder
 from imblearn.over_sampling import SMOTE
 from pandas import DataFrame as df
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 class DataPreprocessing:
@@ -94,3 +96,13 @@ class DataPreprocessing:
             self.train_features = df(data=scale_object.fit_transform(self.train_features), columns=self.features)
             self.test_features = df(data=scale_object.transform(self.test_features), columns=self.features)
             self.val_features = df(data=scale_object.transform(self.val_features), columns=self.features)
+        
+        def save_and_return_correlation_matrix_image(dataframe, save_path="image.png", cmap="coolwarm", fmt=".2f", annot=True, figsize=(10, 8), title="Correlation Matrix Heatmap"):
+            correlation_matrix = dataframe.corr()
+            sns.set(style="white")
+            plt.figure(figsize=figsize)
+            sns.heatmap(correlation_matrix, annot=annot, cmap=cmap, fmt=fmt)
+            plt.title(title)
+            plt.savefig(save_path, bbox_inches="tight")
+            plt.show()
+            return save_path
