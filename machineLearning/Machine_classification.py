@@ -7,6 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 import numpy as np
 
+
 class MachineLearningClassification:
     def __init__(self, data_pr, prediction_array=None, models=None):
         self.best_accuracy = 0
@@ -21,36 +22,67 @@ class MachineLearningClassification:
         self.trained_models = []
 
         if models is None:
-            models = [LogisticRegression(), DecisionTreeClassifier(), RandomForestClassifier(),
-                      GaussianNB(), KNeighborsClassifier(), SVC()]
+            models = [
+                LogisticRegression(),
+                DecisionTreeClassifier(),
+                RandomForestClassifier(),
+                GaussianNB(),
+                KNeighborsClassifier(),
+                SVC(),
+            ]
 
-        self.model_evaluation_dict = {str(model).split('(')[0]: {'model_object': model} for model in models}
-        self.model_prediction = {str(model).split('(')[0]: None for model in models}
+        self.model_evaluation_dict = {
+            str(model).split("(")[0]: {"model_object": model} for model in models
+        }
+        self.model_prediction = {str(model).split("(")[0]: None for model in models}
 
     def fit(self):
         for model, dic in self.model_evaluation_dict.items():
-            dic['model_object'].fit(self.train_features, self.train_target)
-            self.trained_models.append(dic['model_object'])
-            self.model_prediction[model] = dic['model_object'].predict(self.test_features)
+            dic["model_object"].fit(self.train_features, self.train_target)
+            self.trained_models.append(dic["model_object"])
+            self.model_prediction[model] = dic["model_object"].predict(
+                self.test_features
+            )
 
     def score_test_data(self):
         for model, dic in self.model_evaluation_dict.items():
-            dic['score on test data'] = dic['model_object'].score(self.test_features, self.test_target) * 100
-            if dic['score on test data'] > self.best_accuracy:
-                self.best_model = {'Model_obj': dic['model_object'],
-                                   'Name': model,
-                                   'Accuracy': dic['score on test data']}
-                self.best_accuracy = dic['score on test data']
+            dic["score on test data"] = (
+                dic["model_object"].score(self.test_features, self.test_target) * 100
+            )
+            if dic["score on test data"] > self.best_accuracy:
+                self.best_model = {
+                    "Model_obj": dic["model_object"],
+                    "Name": model,
+                    "Accuracy": dic["score on test data"],
+                }
+                self.best_accuracy = dic["score on test data"]
 
     def create_confusion_matrix(self):
         for model, dic in self.model_evaluation_dict.items():
-            dic['confusion matrix for test data'] = confusion_matrix(self.test_target, self.model_prediction[model]).tolist()
+            dic["confusion matrix for test data"] = confusion_matrix(
+                self.test_target, self.model_prediction[model]
+            ).tolist()
 
     def create_f1_precision_recall(self):
         for model, dic in self.model_evaluation_dict.items():
-            dic['f1 score for test data'] = f1_score(self.test_target, self.model_prediction[model], average='macro') * 100
-            dic['precision for test data'] = precision_score(self.test_target, self.model_prediction[model], average='macro') * 100
-            dic['recall for test data'] = recall_score(self.test_target, self.model_prediction[model], average='macro') * 100
+            dic["f1 score for test data"] = (
+                f1_score(
+                    self.test_target, self.model_prediction[model], average="macro"
+                )
+                * 100
+            )
+            dic["precision for test data"] = (
+                precision_score(
+                    self.test_target, self.model_prediction[model], average="macro"
+                )
+                * 100
+            )
+            dic["recall for test data"] = (
+                recall_score(
+                    self.test_target, self.model_prediction[model], average="macro"
+                )
+                * 100
+            )
 
     def evaluate(self):
         self.fit()
@@ -58,12 +90,13 @@ class MachineLearningClassification:
         self.create_confusion_matrix()
         self.create_f1_precision_recall()
         if isinstance(self.prediction_array, np.ndarray):
-            self.model_evaluation_dict['prediction'] = self.best_model['Model_obj'].predict(
-                np.array([self.prediction_array]))[0]
+            self.model_evaluation_dict["prediction"] = self.best_model[
+                "Model_obj"
+            ].predict(np.array([self.prediction_array]))[0]
         for model in self.model_evaluation_dict:
-            if model != 'prediction':
-                del self.model_evaluation_dict[model]['model_object']
-        self.best_model_object = self.best_model['Model_obj']
-        del self.best_model['Model_obj']
-        self.model_evaluation_dict['best model'] = self.best_model
+            if model != "prediction":
+                del self.model_evaluation_dict[model]["model_object"]
+        self.best_model_object = self.best_model["Model_obj"]
+        del self.best_model["Model_obj"]
+        self.model_evaluation_dict["best model"] = self.best_model
         return self.model_evaluation_dict

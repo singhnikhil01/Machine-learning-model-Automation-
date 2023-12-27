@@ -2,7 +2,16 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def save_and_return_correlation_matrix_image(dataframe, save_path="image.png", cmap="coolwarm", fmt=".2f", annot=True, figsize=(10, 8), title="Correlation Matrix Heatmap"):
+
+def save_and_return_correlation_matrix_image(
+    dataframe,
+    save_path="image.png",
+    cmap="coolwarm",
+    fmt=".2f",
+    annot=True,
+    figsize=(10, 8),
+    title="Correlation Matrix Heatmap",
+):
     correlation_matrix = dataframe.corr()
     sns.set(style="white")
     plt.figure(figsize=figsize)
