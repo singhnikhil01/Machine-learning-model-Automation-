@@ -8,6 +8,7 @@ seaborn
 lint 
 pytest
 fire
+black
 pydantic
 fastapi
 pytest-cov
