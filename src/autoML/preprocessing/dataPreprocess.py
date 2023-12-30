@@ -47,8 +47,7 @@ class DataPreprocessing:
         columns = self.data.columns()
         null_data = self.data.isnull().sum()
         correlation = self.data.save_and_return_correlation_matrix_image()
-        return info,description,columns,null_data,correlation
-
+        return info, description, columns, null_data, correlation
 
     @staticmethod
     def initialize():
@@ -147,7 +146,15 @@ class DataPreprocessing:
                 data=scale_object.transform(self.val_features), columns=self.features
             )
 
-    def save_and_return_correlation_matrix_image(self, save_path="image.png", cmap="coolwarm", fmt=".2f", annot=True, figsize=(10, 8), title="Correlation Matrix Heatmap"):
+    def save_and_return_correlation_matrix_image(
+        self,
+        save_path="image.png",
+        cmap="coolwarm",
+        fmt=".2f",
+        annot=True,
+        figsize=(10, 8),
+        title="Correlation Matrix Heatmap",
+    ):
         subdirectory = "assets"
         current_dir = os.getcwd()
         full_path = os.path.join(current_dir, subdirectory, save_path)

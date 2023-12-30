@@ -1,6 +1,7 @@
 import json
 from autoML.preprocessing.dataPreprocess import DataPreprocessing
 
+
 class DataProcessor:
     def __init__(self, data):
         self.data_preprocess = DataPreprocessing(data=data)
@@ -28,7 +29,13 @@ class DataProcessor:
         self.data_preprocess.change_columns(columns=columns)
 
     def describe(self):
-        info, description, columns, null_data, correlation = self.data_preprocess.data_decription()
+        (
+            info,
+            description,
+            columns,
+            null_data,
+            correlation,
+        ) = self.data_preprocess.data_decription()
         data_description_dict = {
             "info": info.to_dict(),
             "description": description.to_dict(),
@@ -53,5 +60,3 @@ class DataProcessor:
 
     def initialize(self):
         self.data_preprocess.initialize()
-
-
