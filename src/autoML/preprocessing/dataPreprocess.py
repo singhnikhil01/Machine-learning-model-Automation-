@@ -9,6 +9,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
+
 class DataPreprocessing:
     def __init__(self, data):
         self.data = data
@@ -34,11 +35,20 @@ class DataPreprocessing:
         else:
             self.features.remove(columns)
 
-    def handle_null(self, fill_type="drop"):
-        if fill_type == "drop":
+    def handle_null(self, method="drop"):
+        if method == "drop":
             self.data.dropna(axis=0, inplace=True)
-        elif fill_type == "mean":
+        elif method == "mean":
             self.data = self.data.apply(lambda x: x.fillna(x.mean()))
+
+    def data_decription(self):
+        info = self.data.info()
+        description = self.data.describe()
+        columns = self.data.columns()
+        null_data = self.data.isnull().sum()
+        correlation = self.data.save_and_return_correlation_matrix_image()
+        return info,description,columns,null_data,correlation
+
 
     @staticmethod
     def initialize():
@@ -49,7 +59,7 @@ class DataPreprocessing:
             "train test split": model_selection.train_test_split,
         }
 
-    def out_in(self, output_name):
+    def choose_label(self, output_name):
         self.input = self.data.drop(output_name, axis=1)
         self.output = self.data[output_name]
         self.features.remove(output_name)

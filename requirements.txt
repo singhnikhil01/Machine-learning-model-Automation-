@@ -6,5 +6,8 @@ scikit-learn
 seaborn
 lint 
 pytest
-fire 
+fire
+pydantic
+fastapi
+pytest-cov
 argon2-cffi
