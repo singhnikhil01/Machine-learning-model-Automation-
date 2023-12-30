@@ -7,14 +7,14 @@ __version__ = "0.0.0"
 
 REPO_NAME = "Machine-learning-model-Automation-"
 AUTHOR_USER_NAME = "singhsansar"
-SRC_REPO = "TextSummerizer"
+SRC_REPO = "autoML"
 AUTHOR_EMAIL = "aiengineer@nikhilsingh.com.np"  
 setuptools.setup(
     name=SRC_REPO,
     version=__version__,
     author=AUTHOR_USER_NAME,
     author_email=AUTHOR_EMAIL,
-    description="A small NLP project",
+    description="Machine Learning Models without code",
     long_description=long_description, 
     long_description_content_type="text/markdown",  
     url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",
