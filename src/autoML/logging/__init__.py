@@ -1,19 +1,19 @@
-import os
-import sys
-import logging
+# import os
+# import sys
+# import logging
 
-# Creating the custom logging
+# # Creating the custom logging
 
-# Information logging
-logging_str = "[%(asctime)s: %(levelname)s: %(module)s: %(message)s]"
-log_dir = "logs"
-logfile_path = os.path.join(log_dir, "running_logs.log")
-os.makedirs(log_dir, exist_ok=True)
+# # Information logging
+# logging_str = "[%(asctime)s: %(levelname)s: %(module)s: %(message)s]"
+# log_dir = "logs"
+# logfile_path = os.path.join(log_dir, "running_logs.log")
+# os.makedirs(log_dir, exist_ok=True)
 
-logging.basicConfig(
-    level=logging.INFO,
-    format=logging_str,
-    handlers=[logging.FileHandler(logfile_path), logging.StreamHandler(sys.stdout)],
-)
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format=logging_str,
+#     handlers=[logging.FileHandler(logfile_path), logging.StreamHandler(sys.stdout)],
+# )
 
-logger = logging.getLogger("TextSummerization logger")
+# logger = logging.getLogger("TextSummerization logger")
