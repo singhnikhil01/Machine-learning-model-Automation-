@@ -11,5 +11,7 @@ fire
 black
 pydantic
 fastapi
+plotly
+tempfile
 pytest-cov
 argon2-cffi
