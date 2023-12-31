@@ -11,6 +11,9 @@ class DataProcessor:
         result = self.data_preprocess.save_and_return_correlation_matrix_image()
         return result
 
+    def get_categoricatl_columns(self):
+        DataPreprocessing.encode_categorical_columns(self.data_preprocess)
+
     def drop_columns(self, columns=None):
         if columns is None:
             columns = []

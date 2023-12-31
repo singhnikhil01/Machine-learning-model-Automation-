@@ -2,19 +2,20 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
-from autoML.preprocessing.dataPreprocess import DataPreprocessing
+from autoML.pipeline.preprocessing import DataProcessor
 import tempfile
+
 
 class Visualize:
     def __init__(self, data):
         self.data = data
         self.temp_dir = tempfile.mkdtemp()
-        self.data_processor = DataPreprocessing(data)
-        self._categorical()
+        self.data_processor = DataProcessor(data)
+        self.data_processor.encode_categorical_columns()
 
-    def save_plot(self, fig, format='png'):
-        plot_file = os.path.join(self.temp_dir, f'plot.{format}')
-        fig.savefig(plot_file, format=format)
+    def _save_plot(self, fig, image_format="png"):
+        plot_file = os.path.join(self.temp_dir, f"plot.{image_format}")
+        fig.savefig(plot_file, format=image_format)
         return plot_file
 
     def bar_plot(self, x, y, title="Bar Plot"):
@@ -47,6 +48,6 @@ class Visualize:
         plt.title(title)
         self._save_plot(plt)
 
-    def pie_chart(self, data, title="Pie Chart"):
-        fig = px.pie(data, names=data.columns[1:], values=data.columns[0], title=title)
-        self._save_plot(fig, format='png')
+    def pie_chart(self, data, title_graph="Pie Chart"):
+        fig = px.pie(data, names=data.columns[1:], values=data.columns[0], title=title_graph)
+        self._save_plot(fig, image_format="png")
