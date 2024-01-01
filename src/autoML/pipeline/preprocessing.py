@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 from autoML.preprocessing.dataPreprocess import DataPreprocessing
 
 
@@ -35,22 +36,23 @@ class DataProcessor:
         self.data_preprocess.change_columns(columns=columns)
 
     def describe(self):
-        (
-            info,
-            description,
-            columns,
-            null_data,
-            correlation,
-        ) = self.data_preprocess.data_decription()
+        
+        info,description,columns,correlation = self.data_preprocess.data_decription()
+        print(info,description,columns,correlation)
+
+        # Convert DataFrame to dictionary
+        """ null_data_dict = null_data.to_dict(orient='records') if isinstance(null_data, pd.DataFrame) else null_data
+
         data_description_dict = {
-            "info": info.to_dict(),
-            "description": description.to_dict(),
+            "info": info,
+            "description": description,
             "columns": columns,
-            "null_data": null_data.to_dict(),
+            "null_data": null_data_dict,
             "correlation": correlation,
         }
+
         data_description_json = json.dumps(data_description_dict, indent=4)
-        return data_description_json
+        return data_description_json """
 
     def standardize_or_normalize(self, scale_type=None):
         self.data_preprocess.standardize_or_normalize(scale_type=scale_type)
