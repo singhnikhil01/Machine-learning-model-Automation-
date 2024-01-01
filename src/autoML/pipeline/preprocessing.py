@@ -22,6 +22,9 @@ class DataProcessor:
         if columns is None:
             columns = []
         self.data_preprocess.drop_columns(columns=columns)
+        '''
+        implement a function called show columns.
+        '''
 
     def handle_null(self, method="drop"):
         self.data_preprocess.handle_null(method=method)
@@ -39,8 +42,6 @@ class DataProcessor:
         
         info,description,columns,correlation = self.data_preprocess.data_decription()
         print(info,description,columns,correlation)
-
-        # Convert DataFrame to dictionary
         """ null_data_dict = null_data.to_dict(orient='records') if isinstance(null_data, pd.DataFrame) else null_data
 
         data_description_dict = {

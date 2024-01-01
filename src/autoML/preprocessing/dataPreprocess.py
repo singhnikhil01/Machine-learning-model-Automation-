@@ -14,6 +14,7 @@ import pandas as pd
 class DataPreprocessing:
     def __init__(self, data):
         self.data = data
+        self.corre = data
         filterwarnings("ignore")
         self.objects = DataPreprocessing.initialize()
         self.input = None
@@ -102,7 +103,7 @@ class DataPreprocessing:
     def get_object_column(self):
         return [i for i in self.features if self.data[i].dtype == np.object_]
 
-    def encode_categorical_columns(self):
+    def encode_categorical_columns(self,data ="self.data"):
         label_encoder_objects = {}
         edit_columns = self.get_object_column()
         for col in edit_columns:
@@ -164,8 +165,8 @@ class DataPreprocessing:
             os.makedirs(os.path.dirname(full_path))
 
 
-        self.encode_categorical_columns()
-        correlation_matrix = self.data.corr()
+        self.encode_categorical_columns(self.corre)
+        correlation_matrix = self.corre.corr()
         sns.set(style="white")
         plt.figure(figsize=figsize)
         sns.heatmap(correlation_matrix, annot=annot, cmap=cmap, fmt=fmt)
