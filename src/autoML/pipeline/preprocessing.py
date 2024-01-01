@@ -6,6 +6,9 @@ class DataProcessor:
     def __init__(self, data):
         self.data_preprocess = DataPreprocessing(data=data)
 
+    def return_data(self):
+        return self.data_preprocess
+
     def convert_df_to_corr(self):
         self.data_preprocess.encode_categorical_columns()
         result = self.data_preprocess.save_and_return_correlation_matrix_image()

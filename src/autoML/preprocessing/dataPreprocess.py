@@ -8,6 +8,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+import pandas as pd
 
 
 class DataPreprocessing:
@@ -44,9 +45,9 @@ class DataPreprocessing:
     def data_decription(self):
         info = self.data.info()
         description = self.data.describe()
-        columns = self.data.columns()
+        columns = self.data.columns
         null_data = self.data.isnull().sum()
-        correlation = self.data.save_and_return_correlation_matrix_image()
+        correlation = self.save_and_return_correlation_matrix_image()
         return info, description, columns, null_data, correlation
 
     @staticmethod
@@ -154,17 +155,22 @@ class DataPreprocessing:
         annot=True,
         figsize=(10, 8),
         title="Correlation Matrix Heatmap",
-    ):
+    ): 
+       
         subdirectory = "assets"
         current_dir = os.getcwd()
         full_path = os.path.join(current_dir, subdirectory, save_path)
         if not os.path.exists(os.path.dirname(full_path)):
             os.makedirs(os.path.dirname(full_path))
-        correlation_matrix = self.data.corr()
-        sns.set(style="white")
-        plt.figure(figsize=figsize)
-        sns.heatmap(correlation_matrix, annot=annot, cmap=cmap, fmt=fmt)
-        plt.title(title)
-        plt.savefig(full_path, bbox_inches="tight")
-        plt.show()
-        return full_path
+
+
+        self.data = self.encode_categorical_columns()
+        print(self.data)
+        # correlation_matrix = self.data.corr()
+        # sns.set(style="white")
+        # plt.figure(figsize=figsize)
+        # sns.heatmap(correlation_matrix, annot=annot, cmap=cmap, fmt=fmt)
+        # plt.title(title)
+        # plt.savefig(full_path, bbox_inches="tight")
+        # plt.show()
+        # return full_path

@@ -1,14 +1,7 @@
-from autoML.utilities.numbers import add_numbers
+from autoML.pipeline.preprocessing import DataProcessor
+import pandas as pd
 
-# from autoML.logging import logger
+dataa = pd.read_csv("/workspaces/Machine-learning-model-Automation-/mobile_dataset.csv")
+data = DataProcessor(dataa)
 
-
-def test_app():
-    result = add_numbers(1, 2)
-    assert result == 3
-
-    # # Adding logging information
-    # if result == 3:
-    #     logger.info("Test passed: sum(1, 2) equals 3")
-    # else:
-    #     logger.error(f"Test failed: sum(1, 2) returned {result}, expected 3")
+print(data.describe())
